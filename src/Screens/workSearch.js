@@ -41,7 +41,8 @@ export default function Search() {
       </View>
       {getSearchData?.map((item, key) => {
         return (
-          <View> key={item.id}
+          <View>
+            key={item.id}
             <Text>{item.title}</Text>
             <ImageBackground style={{height:100,width:100}}  >
                {item.backdrop_path}

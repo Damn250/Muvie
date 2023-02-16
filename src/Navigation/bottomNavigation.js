@@ -1,13 +1,12 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-
 import { Feather, FontAwesome } from "@expo/vector-icons";
 import Film from "../Screens/film";
 import Series from "../Screens/series";
 import { TopNavigation } from "./mainNavigation";
 import { Search } from "../Screens/search";
-
-
+import { Predescription, Profile } from "../Screens/Profile.js";
+import { AntDesign } from "@expo/vector-icons";
 
 const bottom = createBottomTabNavigator();
 
@@ -53,6 +52,17 @@ export const MainNavigation = () => {
         }}
         name="folder"
         component={Series}
+      />
+
+      <Screen
+        options={{
+          tabBarIcon: () => {
+            return <AntDesign name="appstore-o" size={24} color="gold" />;
+          },
+          tabBarLabel: () => null,
+        }}
+        name="store"
+        component={Profile}
       />
     </Navigator>
   );

@@ -7,11 +7,29 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { TextInput } from "react-native-paper";
 import { AntDesign, Fontisto } from "@expo/vector-icons";
+import { LoginUser } from "../features/authSlice";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { ActivityIndicator } from "react-native";
 
-export const Login = ({navigation}) => {
+export const Login = ({ navigation }) => {
+  const { isLoading, error } = useSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  // const [loading, setLoading] = useState(false);
+  const handleLogin = () => {
+    const data = {
+      email,
+      password,
+    };
+    dispatch(LoginUser(data));
+  };
+
   return (
     <SafeAreaView>
       <View style={{ backgroundColor: "#26272a", height: "100%" }}>
@@ -58,6 +76,7 @@ export const Login = ({navigation}) => {
                   mode="outline"
                   label="Email Address"
                   activeUnderlineColor="#fdd130"
+                  onChangeText={(text) => setEmail(text)}
                   textColor="white"
                   style={{ backgroundColor: "#26272a", width: "90%" }}
                 />
@@ -74,6 +93,7 @@ export const Login = ({navigation}) => {
                 placeholder=" Enter password"
                 label="Password"
                 activeUnderlineColor="#fdd130"
+                onChangeText={(password) => setPassword(password)}
                 textColor="white"
                 secureTextEntry
                 style={{
@@ -94,7 +114,19 @@ export const Login = ({navigation}) => {
             Forgot Password ?
           </Text>
         </View>
-        <Pressable
+        {isLoading == true ? (
+          <ActivityIndicator size={"small"} color="#fdd130" />
+        ) : null}
+        {error !== "" ? (
+          <Text
+            style={{
+              color: "red",
+            }}
+          >
+            {error}
+          </Text>
+        ) : null}
+        <TouchableOpacity
           style={{
             alignSelf: "center",
             backgroundColor: "#fdd130",
@@ -103,10 +135,11 @@ export const Login = ({navigation}) => {
             marginTop: 20,
             borderRadius: 5,
           }}
-          onPress={() => navigation.navigate("Topnav")}
+          onPress={handleLogin}
         >
-          <Text>Get started</Text>
-        </Pressable>
+          <Text>Login</Text>
+        </TouchableOpacity>
+
         <Text style={{ color: "white", alignSelf: "center" }}>
           or simply login with
         </Text>
@@ -118,10 +151,15 @@ export const Login = ({navigation}) => {
             paddingVertical: 13,
             marginTop: 20,
             borderRadius: 5,
-            flexDirection:'row'
+            flexDirection: "row",
           }}
         >
-          <AntDesign name="apple1" size={20} color="white" style={{marginRight:10}} />
+          <AntDesign
+            name="apple1"
+            size={20}
+            color="white"
+            style={{ marginRight: 10 }}
+          />
           <Text style={{ color: "white" }}>Login with apple</Text>
         </Pressable>
         <Pressable
@@ -132,10 +170,15 @@ export const Login = ({navigation}) => {
             paddingVertical: 13,
             marginTop: 20,
             borderRadius: 5,
-            flexDirection:'row'
+            flexDirection: "row",
           }}
         >
-          <AntDesign name="google" size={20} color="green" style={{marginRight:10}} />
+          <AntDesign
+            name="google"
+            size={20}
+            color="green"
+            style={{ marginRight: 10 }}
+          />
           <Text>Login with Google</Text>
         </Pressable>
         <View

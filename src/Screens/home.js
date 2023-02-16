@@ -9,15 +9,14 @@ import { UpCard } from "./new";
 import { LowCard } from "./lowcard";
 import { LowCard2 } from "./lowcard2";
 
-export const HomeScreen = () => {return (
-  <View style={{ backgroundColor: "#26272a", height:"100%"}}>
-    <ScrollView>
-
-    <UpCard />
-    <LowCard />
-    <LowCard2/>
-    </ScrollView>
-  </View>
-);
-  
+export const HomeScreen = () => {
+  return (
+    <View style={{ backgroundColor: "#26272a", height: "100%" }}>
+      <ScrollView>
+        <UpCard />
+        <LowCard />
+        <LowCard2 />
+      </ScrollView>
+    </View>
+  );
 };

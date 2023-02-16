@@ -3,16 +3,16 @@ import { StyleSheet, Text, View } from "react-native";
 import { RootNavigation } from "./src/Navigation/rootNavigation";
 import Search from "./src/Screens/workSearch";
 import { Provider } from "react-redux";
-
-import { Pass } from "./src/Pass";
-import { store } from "./src/store";
+import { store } from "./src/features/store";
+import { Profile } from "./src/Screens/Profile";
 
 export default function App() {
   return (
+    <Provider store={store}>
+
     <RootNavigation/>
-    // <Search />
-    // <Provider store={store}>
-    //   <Pass />
-    // </Provider>
+    {/* <Profile/> */}
+    </Provider>
+  
   );
 }

@@ -3,10 +3,10 @@ import React from 'react'
 
 export const Film = () => {
   return (
-    <View>
+    <View style={{ backgroundColor: "#26272a" ,height:"100%"}}>
       <Text>film</Text>
     </View>
-  )
+  );
 }
 
 export default Film

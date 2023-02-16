@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable , TextInput} from "react-native";
 import { Cardsmall } from "./small";
 import axios from "axios";
 import React from "react";
@@ -7,18 +7,16 @@ import { ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AntDesign } from "@expo/vector-icons";
 import { Searchsmall } from "./searchCard";
-import { TextInput } from "react-native-paper";
 
-export const Search = ({navigation}) => {
+
+export const Search = ({ navigation }) => {
   const [search, setsearch] = useState("");
   const [popularmovies, setPopularmovies] = useState([]);
   useEffect(() => {
-    if(search.length > 0)
-    getdata();
-     else {
-      setPopularmovies([])
-     }
-    
+    if (search.length > 0) getdata();
+    else {
+      setPopularmovies([]);
+    }
   }, [search]);
 
   const getdata = () => {
@@ -36,7 +34,7 @@ export const Search = ({navigation}) => {
 
   return (
     <SafeAreaView>
-      <View style={{ backgroundColor: "#26272a", padding: 10 , height:'100%'}}>
+      <View style={{ backgroundColor: "#26272a", padding: 10, height: "100%" }}>
         <Text style={{ fontSize: 20, color: "white", fontWeight: "bold" }}>
           Search
         </Text>
@@ -45,39 +43,36 @@ export const Search = ({navigation}) => {
             flexDirection: "row",
             justifyContent: "space-between",
             backgroundColor: "#2c2d31",
-            
           }}
         >
           <TextInput
             placeholder="Type title, categories,years "
-            style={{ backgroundColor: "#2c2d31" }}
+            style={{ backgroundColor: "#2c2d31", paddingTop: 15 }}
             onChangeText={(text) => setsearch(text)}
           />
           <AntDesign
             name="search1"
             size={24}
             color="gold"
-            style={{ paddingTop: 20, marginRight: 10 }}
+            style={{ marginRight: 10, marginTop:10 }}
           />
         </View>
-        
+
         <ScrollView>
           <View style={{ marginTop: -15 }}>
             {popularmovies.map((item, key) => {
               return (
                 <Pressable
-                onPress={() => navigation.navigate('Description') }
-                >
-
-                <Searchsmall
-
                   key={key}
-                  image={item.backdrop_path}
-                  title={item.title}
-                  date={item.release_date}
-                  description={item.overview}
+                  onPress={() => navigation.navigate("Description", item)}
+                >
+                  <Searchsmall
+                    image={item.backdrop_path}
+                    title={item.title}
+                    date={item.release_date}
+                    description={item.overview}
                   />
-                  </Pressable>
+                </Pressable>
               );
             })}
           </View>

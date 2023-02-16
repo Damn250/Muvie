@@ -1,9 +1,10 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { HomeScreen } from "../Screens";
 import { Film } from "../Screens/film";
-import Series from "../Screens/series";
+
 import { SafeAreaView } from "react-native-safe-area-context";
 import { View, Image, Text } from "react-native";
+import { Series } from "../Screens/series";
 
 const Top = createMaterialTopTabNavigator();
 

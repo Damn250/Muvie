@@ -19,7 +19,7 @@ export const LowCard2 = () => {
       url: "https://api.themoviedb.org/3/movie/popular?api_key=d9cf23cf23f14a29b69eccb99afeaeff&language=en-US&page=3",
     })
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         setPopularmovies(response.data.results);
       })
       .catch((err) => {
@@ -27,7 +27,7 @@ export const LowCard2 = () => {
       });
   };
   return (
-    <View style={{ backgroundColor: "#26272a", padding: 10,  }}>
+    <View style={{ backgroundColor: "#26272a", padding: 10 }}>
       <Text style={{ color: "white", fontWeight: "bold" }}>Recently added</Text>
       <ScrollView horizontal>
         <View style={{ flexDirection: "row", marginTop: -15 }}>

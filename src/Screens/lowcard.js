@@ -18,7 +18,7 @@ export const LowCard = () => {
       url: "https://api.themoviedb.org/3/movie/popular?api_key=d9cf23cf23f14a29b69eccb99afeaeff&language=en-US&page=2",
     })
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         setPopularmovies(response.data.results);
       })
       .catch((err) => {

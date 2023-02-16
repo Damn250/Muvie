@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { Card, Cardsmall } from "./card";
 import axios from "axios";
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export const UpCard = () => {
+  const navigation = useNavigation();
   const [popularmovies, setPopularmovies] = useState([]);
   useEffect(() => {
     getdata();
@@ -18,7 +20,7 @@ export const UpCard = () => {
       url: "https://api.themoviedb.org/3/movie/popular?api_key=d9cf23cf23f14a29b69eccb99afeaeff&language=en-US&page=1",
     })
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         setPopularmovies(response.data.results);
       })
       .catch((err) => {
@@ -34,12 +36,16 @@ export const UpCard = () => {
         <View style={{ flexDirection: "row", marginTop: -15 }}>
           {popularmovies.map((item, key) => {
             return (
-              <Card
+              <TouchableOpacity
+                onPress={() => navigation.navigate("Description", item)}
                 key={key}
-                image={item.backdrop_path}
-                title={item.title}
-                date={item.release_date}
-              />
+              >
+                <Card
+                  image={item.backdrop_path}
+                  title={item.title}
+                  date={item.release_date}
+                />  
+              </TouchableOpacity>
             );
           })}
         </View>

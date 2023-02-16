@@ -5,12 +5,31 @@ import {
   Image,
   Pressable,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import React from "react";
+import React, { useState } from "react";
 import { TextInput } from "react-native-paper";
 import { AntDesign, Fontisto } from "@expo/vector-icons";
+import { SignUpUser } from "../features/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+
 export const SignUp = ({ navigation }) => {
+  const { isLoading, error } = useSelector((state) => state.auth);
+  const [email, setEmail] = useState("");
+  const [username, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+
+  const handleSignUp = () => {
+    const data = {
+      username,
+      email,
+      password,
+    };
+    dispatch(SignUpUser(data));
+  };
+
   return (
     <SafeAreaView>
       <View style={{ backgroundColor: "#26272a", height: "100%" }}>
@@ -68,6 +87,7 @@ export const SignUp = ({ navigation }) => {
                   activeUnderlineColor="#fdd130"
                   textColor="white"
                   style={{ backgroundColor: "#26272a", width: "90%" }}
+                  onChangeText={(text) => setEmail(text)}
                 />
                 <Fontisto
                   name="email"
@@ -79,9 +99,11 @@ export const SignUp = ({ navigation }) => {
             </View>
             <View style={{ flexDirection: "row" }}>
               <TextInput
-                placeholder=" Enter password"
-                label="Password"
+                placeholder=" Enter Username"
+                label="Username"
+                textColor="white"
                 activeUnderlineColor="#fdd130"
+                onChangeText={(text) => setUserName(text)}
                 style={{
                   backgroundColor: "#26272a",
                   paddingTop: 10,
@@ -100,6 +122,9 @@ export const SignUp = ({ navigation }) => {
                 placeholder=" Enter password"
                 label="Password"
                 activeUnderlineColor="#fdd130"
+                textColor="white"
+                secureTextEntry
+                onChangeText={(text) => setPassword(text)}
                 style={{
                   backgroundColor: "#26272a",
                   paddingTop: 10,
@@ -118,7 +143,19 @@ export const SignUp = ({ navigation }) => {
             Forgot Password ?
           </Text>
         </View>
-        <Pressable
+        {isLoading == true ? (
+          <ActivityIndicator color={"#fdd130"} size={"small"} />
+        ) : null}
+        {error !== "" ? (
+          <Text
+            style={{
+              color: "red",
+            }}
+          >
+            {error}
+          </Text>
+        ) : null}
+        <TouchableOpacity
           style={{
             alignSelf: "center",
             backgroundColor: "#fdd130",
@@ -127,10 +164,12 @@ export const SignUp = ({ navigation }) => {
             marginTop: 20,
             borderRadius: 5,
           }}
-          onPress={() => navigation.navigate("login")}
+          onPress={() => {
+            handleSignUp();
+          }}
         >
           <Text>Get started</Text>
-        </Pressable>
+        </TouchableOpacity>
         <Text style={{ color: "white", alignSelf: "center" }}>
           or simply login with
         </Text>
